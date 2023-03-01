@@ -14,12 +14,12 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - run: git remote -v
-      - run: git remote get-url origin | tee origin.txt
+      - run: git remote get-url origin
       - run: git init release
       - run: |
           head -c 6 /dev/urandom | base64 | tee tag.txt
           head -c 8 /dev/urandom | base64 | tee random.txt
-          git remote add origin "$(cat ../origin.txt)"
+          git remote add origin 'https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}'
           git add .
           git commit -m release --allow-empty
           git push origin main:release
