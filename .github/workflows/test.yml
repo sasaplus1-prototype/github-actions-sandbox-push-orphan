@@ -9,6 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          git config --global init.defaultBranch main
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - run: git remote -v
       - run: git remote get-url origin
       - run: git init release
+      - run: |
+          head -c 6 /dev/urandom | base64 | tee tag.txt
+          head -c 8 /dev/urandom | base64 | tee random.txt
+          git add .
+          git commit -m release --allow-empty
+          git push origin main:release
+          git tag "$(cat tag.txt)"
+          git push origin "$(cat tag.txt)"
+          git push origin --delete release
+        working-directory: release
