@@ -19,7 +19,7 @@ jobs:
       - run: |
           head -c 6 /dev/urandom | base64 | tee tag.txt
           head -c 8 /dev/urandom | base64 | tee random.txt
-          git remote add origin "$(cat origin.txt)"
+          git remote add origin "$(cat ../origin.txt)"
           git add .
           git commit -m release --allow-empty
           git push origin main:release
