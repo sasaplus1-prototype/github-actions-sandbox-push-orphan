@@ -10,4 +10,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: git remote -v
+      - run: git remote get-url origin
       - run: git init release
