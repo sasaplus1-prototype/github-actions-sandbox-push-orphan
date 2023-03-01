@@ -22,8 +22,9 @@ jobs:
           git remote add origin 'https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}'
           git add .
           git commit -m release --allow-empty
-          git push origin main:release
+          # git push origin main:release
           git tag "$(cat tag.txt)"
-          git push origin "$(cat tag.txt)"
-          git push origin --delete release
+          git push origin --tags "$(cat tag.txt)"
+          # git push origin "$(cat tag.txt)"
+          # git push origin --delete release
         working-directory: release
